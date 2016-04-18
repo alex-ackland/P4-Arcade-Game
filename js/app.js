@@ -1,7 +1,7 @@
 
 // Global variables
-var height= 606;
-var width= 500;
+var height = 606;
+var width = 500;
 
 // Enemies our player must avoid
 var Enemy = function(x, y) {
@@ -22,9 +22,9 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    s= (Math.random() * 250 * dt);
-    this.x +=s;
-    if (this.x> width) this.x =0;
+    var s = (Math.random() * 250 * dt);
+    this.x += s;
+    if (this.x> width) this.x = 0;
 };
 
 // Draw the enemy on the screen, required method for game
@@ -39,6 +39,7 @@ var Player = function(x, y) {
     // setting the player so that it is the middle of the blocks
     this.x = width/2.5;
     this.y = height/1.5;
+    alert('CONGRATULATIONS - you have won the game');
 };
 
 Player.prototype.update = function(dt){
@@ -97,6 +98,22 @@ for (var i = 0; i < 3; i++) {
 
  var player = new Player();
 
+function checkCollisions() {
+   for (var i = 0; i < allEnemies.length; i++) {
+      if ((allEnemies[i].x) <= player.x +
+         40 &&
+         (allEnemies[i].x + 40) >= (
+            player.x) &&
+         (allEnemies[i].y) <= player.y +
+         40 &&
+         (allEnemies[i].y + 40) >= (
+            player.y)) {
+         alert('GAME OVER - You have been captured by the enemy');
+         
+      }
+   }
+}
+
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
@@ -110,3 +127,5 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+
