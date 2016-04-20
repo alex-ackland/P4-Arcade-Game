@@ -39,7 +39,11 @@ var Player = function(x, y) {
     // setting the player so that it is the middle of the blocks
     this.x = width/2.5;
     this.y = height/1.5;
-    alert('CONGRATULATIONS - you have won the game');
+};
+
+Player.prototype.reset = function () {
+  this.x = width/2.5;
+  this.y = height/1.5;
 };
 
 Player.prototype.update = function(dt){
@@ -57,7 +61,8 @@ Player.prototype.update = function(dt){
     }
     if (this.y < 0 || this.y > 400) {
         if(this.y < 0){
-            this.reset();
+            player.reset();
+            alert('CONGRATULATIONS - you have won the game');
         }
         else{
             this.y = 400;
@@ -85,6 +90,7 @@ Player.prototype.handleInput = function(direction){
  }
  };
 
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
@@ -98,6 +104,9 @@ for (var i = 0; i < 3; i++) {
 
  var player = new Player();
 
+ //for (var i = 0; len = allEnemies.length; i < len; i++)  
+    
+
 function checkCollisions() {
    for (var i = 0; i < allEnemies.length; i++) {
       if ((allEnemies[i].x) <= player.x +
@@ -108,6 +117,7 @@ function checkCollisions() {
          40 &&
          (allEnemies[i].y + 40) >= (
             player.y)) {
+         player.reset();
          alert('GAME OVER - You have been captured by the enemy');
          
       }
